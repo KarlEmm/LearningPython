@@ -2,7 +2,10 @@ import requests
 from plotly.graph_objs import Bar
 from plotly import offline
 
-# Make an API call and store the response.
+# This File Makes a bar chart with Plotly showing the popularity of each repo
+# mainly written with Python.
+
+# Make an API call to GitHub for all the repo in Python; sorts them by stars.
 url = 'https://api.github.com/search/repositories?q=language:python&sort=stars'
 headers = {'Accept': 'application/vnd.github.v3+json'}
 r = requests.get(url, headers=headers)

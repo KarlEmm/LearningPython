@@ -1,15 +1,17 @@
 import matplotlib.pyplot as plt
 from random_walk import RandomWalk
 
-cmap = plt.cm.Blues
+# Using matplotlib, trace the path the program randomly takes through the
+# imported RandomWalk class.
 
-# Keep making new wlaks, as long as the program is active.
+# Keep making new walk, as long as the program is active.
 while True:
-  walk = RandomWalk(50_000)
+  size = 50_000
+  walk = RandomWalk(size)
   walk.fill_walk()
   length = walk.num_points
   fig, ax = plt.subplots()
-  ax.scatter(walk.x_values, walk.y_values, color=cmap, linewidth=1)
+  ax.scatter(walk.x_values, walk.y_values, c=range(size), cmap=plt.cm.coolwarm, s=1)
   ax.get_xaxis().set_visible(False)
   ax.get_yaxis().set_visible(False)
   plt.show()

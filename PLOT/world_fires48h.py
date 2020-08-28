@@ -3,6 +3,9 @@ import csv
 from plotly.graph_objs import Scattergeo, Layout
 from plotly import offline
 
+# Plots the world fires of the last 48h on a world map using Scattergeo from
+# Plotly.
+
 filename = 'PLOT/MODIS_C6_Global_48h.csv'
  # Prints the columns' header
 with open(filename) as f:
