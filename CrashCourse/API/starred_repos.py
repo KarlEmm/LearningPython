@@ -30,7 +30,7 @@ def buildData(repo_dicts):
     label = f'{owner}<br />{description}'
     labels.append(label)
   return [repo_links, stars, labels]
-
+  
 def makeGraph(dataDict):
   repo_links = dataDict[0]
   stars = dataDict[1]
