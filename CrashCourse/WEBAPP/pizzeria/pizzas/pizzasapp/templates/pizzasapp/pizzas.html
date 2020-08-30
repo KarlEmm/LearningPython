@@ -1,0 +1,13 @@
+{% extends 'pizzasapp/base.html' %}
+
+{% block content %}
+  <ul style="list-style-type:none">
+    {% for pizza in pizzas %}
+      <li>
+        <a href="{% url 'pizzasapp:pizza' pizza.id %}">{{ pizza }}</a>
+      </li>
+    {% empty %}
+      <li>There are no pizzas available at Papa's Pizzeria :(</li>
+    {% endfor %}
+  </ul>
+{% endblock content %}
