@@ -1,20 +1,32 @@
 {% extends 'learning_logs/base.html' %}
 
+{% block page_header %}
+  <h3>{{ topic }}</h3>
+{% endblock page_header %}
+
 {% block content %}
-  <h2>Topic: {{ topic }}</h2>
-  <a href="{% url 'learning_logs:new_entry' topic.id %}">Add entry</a>
-  <p>Entries: </p>
-  <ul>
+  <a href="{% url 'learning_logs:new_entry' topic.id %}" class="btn btn-success mb-3">Add new entry</a>
+
     {% for entry in entries %}
-      <li>
-        <p>{{ entry.date_added|date:'M d, Y H:i' }}</p>
-        <p>{{ entry.text|linebreaks }}</p>
-        <a href={% url 'learning_logs:edit_entry' entry.id %}>Edit</a>
-        <a href={% url 'learning_logs:delete_entry' entry.id %}>Delete</a>
-      </li>
+      <div class="card mb-3">
+        <h4 class="card-header">
+          {{ entry.date_added|date:'M d, Y H:i' }}
+          <span class="float-right">
+            <small><a href="{% url 'learning_logs:edit_entry' entry.id %}"
+            class="btn btn-warning">edit
+            entry</a> - </small> 
+            <small>
+            <a href={% url 'learning_logs:delete_entry' entry.id %} class="btn
+            btn-danger">delete entry</a></small>
+          </span>
+        </h4>
+        <div class="card-body">
+          {{ entry.text|linebreaks }}
+        </div>
+      </div>
     {% empty %}
-      <li>There are no entries for this topic yet.</li>
+      <p>There are no entries for this topic yet.</p>
     {% endfor %}
-  </ul>
-  <a href="{% url 'learning_logs:delete_topic' topic.id %}">Delete topic</a>
+  
+  <a href="{% url 'learning_logs:delete_topic' topic.id %}" class="btn btn-danger">Delete topic</a>
 {% endblock content %}
