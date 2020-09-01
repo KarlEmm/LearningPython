@@ -1,0 +1,27 @@
+{% extends 'blogs/base.html' %}
+{% load tz %}
+
+{% block page_header %}
+  <h1>Your Windows</h1>
+{% endblock page_header %}
+
+{% block content %}
+  <a href="{% url 'blogs:new_post' %}" class="btn btn-success mb-3">Add New
+  Post</a>
+  
+  {% for post in posts %}
+    <div class="card mb-3">
+      <h4 class="card-header"><a href="{% url 'blogs:post' post.id %}">{{ post.title }}</a> <span class="float-right">
+        <a href="{% url 'blogs:edit_post' post.id %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'blogs:delete_post' post.id %}" class="btn btn-danger">Delete</a>
+      </span></h4>
+      <div class="card-body">
+        <p class="card-title">{{ post.date_added|timezone:'US/Eastern'}}</p>
+        <p class="card-text">{{ post.content|truncatechars:100 }}</p>
+      </div>
+    </div>
+  {% empty %}
+    <p>You have not posted anything yet.</p>
+  {% endfor %}
+  </ul>
+{% endblock content %}
