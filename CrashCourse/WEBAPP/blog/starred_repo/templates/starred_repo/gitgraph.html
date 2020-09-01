@@ -1,0 +1,19 @@
+{% extends 'blogs/base.html' %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+  <h2>Most Starred Projects on GitHub</h2>
+{% endblock page_header %}
+
+{% block content %}
+  <form action="{% url 'starred_repo:gitgraph' %}" method="POST" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button class="btn btn-primary" type="submit" name="submit">Graph</button>
+  </form>
+  {% if plot_div %}
+    {% autoescape off %}
+    {{ plot_div|safe}}
+    {% endautoescape %}
+  {% endif %}
+{% endblock content %}

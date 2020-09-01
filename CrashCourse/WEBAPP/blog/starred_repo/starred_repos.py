@@ -1,13 +1,13 @@
 import requests
 from plotly.graph_objs import Bar
-from plotly import offline
+from plotly.offline import plot
 
 # This File Makes a bar chart with Plotly showing the popularity of each repo
 # mainly written with Python.
 
-queriedLanguage = 'python'
+#queriedLanguage = 'python'
 # Make an API call to GitHub for all the repo in Python; sorts them by stars.
-def fetchRepos():
+def fetchRepos(queriedLanguage):
   url = f'https://api.github.com/search/repositories?q=language:{queriedLanguage}&sort=stars'
   headers = {'Accept': 'application/vnd.github.v3+json'}
   r = requests.get(url, headers=headers)
@@ -17,7 +17,8 @@ def fetchRepos():
   response_dict = r.json()
   return response_dict['items']
 
-def buildData(repo_dicts):
+def buildData(queriedLanguage):
+  repo_dicts = fetchRepos(queriedLanguage)
   repo_links, stars, labels = [], [], []
   for repo_dict in repo_dicts:
     repo_name = repo_dict['name']
@@ -31,7 +32,8 @@ def buildData(repo_dicts):
     labels.append(label)
   return [repo_links, stars, labels]
   
-def makeGraph(dataDict):
+def makeGraph(queriedLanguage):
+  dataDict = buildData(queriedLanguage)
   repo_links = dataDict[0]
   stars = dataDict[1]
   labels = dataDict[2]
@@ -59,10 +61,12 @@ def makeGraph(dataDict):
       'title': 'Stars',
       'titlefont': {'size': 24},
       'tickfont': {'size': 14}
-      },
+    },
+    'height': 900
   }
 
   fig = {'data': data, 'layout': my_layout}
-  offline.plot(fig, filename='starred_repos.html')
+  plot_div = plot(fig, output_type='div')
+  return plot_div
 
-makeGraph(buildData(fetchRepos()))
+

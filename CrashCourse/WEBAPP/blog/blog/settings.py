@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = '0^%pwshn#jzu)#q8ci&qix901cku@2$ou&6tda+35vy9bppn3w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True 
 
 ALLOWED_HOSTS = []
 
@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     # My Apps
     'blogs',
     'users',
+    'starred_repo',
 
     # Third party apps
     'bootstrap4',
@@ -128,6 +129,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# My settings
 LOGIN_URL = 'users:login'
 
 # Heroku settings
